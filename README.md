@@ -1,2 +1,2 @@
-# projeto-final-pos-2024
-Projeto Final da disciplina de POS
+# Projeto final POS 2024
+- Dupla: Wenderson da Silva e Izac do Nascimento

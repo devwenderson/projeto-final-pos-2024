@@ -3,7 +3,7 @@ from apps.todo.views import TodoViewSet
 
 # Rotas
 router = routers.DefaultRouter()
-router.register(r'', TodoViewSet)
+router.register(r'todos', TodoViewSet)
 
 urlpatterns = []
 urlpatterns += router.urls

@@ -27,6 +27,7 @@ DJANGO_APPS = [
 LOCAL_APPS = [
     'apps.todo',
     'apps.user',
+    'apps.album',
 ]
 
 THIRD_PARTY_APPS = [

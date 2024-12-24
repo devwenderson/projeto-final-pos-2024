@@ -1,0 +1,17 @@
+Projeto referência: https://jsonplaceholder.typicode.com/guide/
+
+CRUD de:
+    - User; (OK)
+    - ToDo; (OK)
+    - Posts e Comments; 
+    - Albums e Photos. (OK)
+
+Posts:
+    - Título
+    - Corpo
+    - Comentários
+    - Usuário
+
+Comentário:
+    - Corpo
+    - Usuário

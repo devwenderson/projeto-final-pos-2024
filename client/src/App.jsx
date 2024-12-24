@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react'
-import UserWrapper from './functions/userWrapper'
+import ApiWrapper from './functions/apiWrapper.js'
 import './App.css'
 
-const userApi = new UserWrapper('http://127.0.0.1:8000/api/users/');
+const apiWrapper = new ApiWrapper();
 
 function App() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState();
-
+  const [isLoading, setIsLoading] = useState();
+ 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const users = await userApi.getUsers();
+        setIsLoading(true)
+        const users = await apiWrapper.listAll(endpoint = '/users/');
         setUsers(users)
       } catch (error) {
         setError(error)
       }
     };
 
+    setIsLoading(false)
     fetchUsers()
   }, [])
 
@@ -26,7 +29,7 @@ function App() {
       <h1>Início</h1>
       <ul>
         {users.map((user) => (
-          <li>{user.name}</li>
+          <li key={user.id}>{user.name}</li>
         ))}
       </ul>
     </>

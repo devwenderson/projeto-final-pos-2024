@@ -8,6 +8,7 @@ import App from './App.jsx';
 // Pages
 import Home from './pages/Home.jsx';
 import ListUsers from './pages/users/ListUsers.jsx';
+import ListTodos from './pages/todos/ListTodos.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: 'usuarios/',
         element: <ListUsers />
+      },
+      {
+        path: 'tarefas/',
+        element: <ListTodos />
       }
     ],
   },

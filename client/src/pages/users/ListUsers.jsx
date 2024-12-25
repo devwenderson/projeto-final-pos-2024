@@ -11,8 +11,8 @@ const ListUsers = () => {
     const fetchUsers = async () => {
         try {
             setIsLoading(true)
-            const users = await apiWrapper.listAll('/users/');
-            setUsers(users)
+            const usersData = await apiWrapper.listAll('/users/');
+            setUsers(usersData)
         } catch (error) {
             setError(error)
         } finally {

@@ -16,28 +16,28 @@ class ApiWrapper {
             }
             return response.json()
         } catch (error) {
-            console.error('Error: ', error)
+            return error
         }
     }
 
     // List all
     async listAll (endpoint) {
-        return this.request(endpoint = endpoint)
+        return this.request(endpoint)
     } 
 
     // Create
     async create (endpoint, data) {
-        return this.request(endpoint = endpoint, method = 'POST', body = data)
+        return this.request(endpoint, 'POST', data)
     }
 
     // Update
     async update (endpoint, id, data) {
-        return this.request(endpoint = `${endpoint}${id}`, method = 'PUT', body = data)
+        return this.request(`${endpoint}${id}`, method = 'PUT', data)
     }
 
     // Delete
     async delete (endpoint, id) {
-        return this.request(endpoint = `${endpoint}${id}`, method = 'DELETE')
+        return this.request(`${endpoint}${id}`, 'DELETE')
     }
 }
 

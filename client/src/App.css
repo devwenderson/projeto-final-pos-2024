@@ -1,0 +1,6 @@
+.container {
+    width: 90vw;
+    /* top and bottom is 0 */
+    /* right and left is auto */
+    margin: 0 auto;
+}

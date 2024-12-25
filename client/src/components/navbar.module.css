@@ -1,0 +1,33 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #0f172a;
+    padding: 1em;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: rgb(240, 245, 255);
+}
+
+.ul {
+    list-style: none;
+    display: flex;
+}
+
+.ul li a {
+    display: block;
+    text-decoration: none;
+    color: rgb(240, 245, 255);
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    
+}
+
+.ul li a:hover {
+    scale: 1.1;
+}
+
+.active {
+    background-color: #1d4ed8;
+}

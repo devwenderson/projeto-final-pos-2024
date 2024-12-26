@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import ApiWrapper from "../../functions/apiWrapper";
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"  
 
 const apiWrapper = new ApiWrapper()
 
@@ -28,15 +37,23 @@ const ListTodos = () => {
         <>
             <h1>Lista de tarefas</h1>
 
-            {!isLoading && !error && todos.length > 0 && (
-                <ul>
-                    {todos.map((todo) => (
-                        <li key={todo.id}>{todo.title} ({todo.user}) - {todo.is_complete} </li>
-                    ))}
-                </ul>
-            )
-            
-            }
+            {/* Se estiver carregando */}
+            {isLoading && (<p>Carregando tarefas</p>)}
+
+            {/* Se tiver erro */}
+            {!isLoading && error && (<p>Erro no cliente</p>)}
+
+            {!isLoading && !error && todos.length > 0 ? (
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>ID</TableHead>
+                            <TableHead>Tarefa</TableHead>
+                            <TableHead>Tarefa</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                </Table>
+            ) : (<p>Tarefas não encontradas</p>)}
         </>
     )
 }

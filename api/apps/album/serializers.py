@@ -8,6 +8,7 @@ class AlbumSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'user',]
         
 class PhotoSerializer(serializers.ModelSerializer):
+    album = serializers.CharField(source='album.title', read_only=True)
     class Meta:
         model = Photo
         fields = '__all__'

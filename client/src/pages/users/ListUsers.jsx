@@ -1,4 +1,13 @@
 import { useEffect, useState } from 'react';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"  
 import ApiWrapper from '../../functions/apiWrapper';
 
 const apiWrapper = new ApiWrapper();
@@ -36,11 +45,22 @@ const ListUsers = () => {
 
             {/* Quando terminar a requisição */}
             {!isLoading && !error && users.length > 0 ? (
-                <ul>
-                    {users.map((user) => (
-                        <li key={user.id}>{user.name}</li>
-                    ))}
-                </ul>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>ID</TableHead>
+                            <TableHead>Nome</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {users.map((user)=>(
+                            <TableRow key={user.id}>
+                                <TableCell>{user.id}</TableCell>
+                                <TableCell>{user.name}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             ) : (<p>Usuários não encontrados</p>)}
         </>
     )

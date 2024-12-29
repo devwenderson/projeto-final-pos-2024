@@ -9,13 +9,17 @@ class ApiWrapper {
                     'Content-type': 'application/json',
                 },
             };
+            if (body) { options.body = JSON.stringify(body) }
 
             const response = await fetch(`${this.baseUrl}${endpoint}`, options);
+         
             if (!response.ok) {
-                throw new Error(`Response error: ${response.status}`)
+                const errorResponse = await response.json();
+                throw { success: false, message: errorResponse.message, status: response.status };
             }
-            return response.json()
-        } catch (error) {
+            const data = await response.json()
+            return { success: true, data: data, status: response.status };
+        } catch (error) {                       
             return error
         }
     }
@@ -25,6 +29,11 @@ class ApiWrapper {
         return this.request(endpoint)
     } 
 
+    // Detail
+    async detail (endpoint, id) {
+        return this.request(`${endpoint}${id}/`)
+    }
+
     // Create
     async create (endpoint, data) {
         return this.request(endpoint, 'POST', data)
@@ -32,12 +41,12 @@ class ApiWrapper {
 
     // Update
     async update (endpoint, id, data) {
-        return this.request(`${endpoint}${id}`, method = 'PUT', data)
+        return this.request(`${endpoint}${id}/`, 'PUT', data)
     }
 
     // Delete
     async delete (endpoint, id) {
-        return this.request(`${endpoint}${id}`, 'DELETE')
+        return this.request(`${endpoint}${id}/`, 'DELETE')
     }
 }
 

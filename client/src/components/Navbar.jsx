@@ -5,10 +5,8 @@ import './Navbar.css';
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false)
     return (
-        <nav className='navbar'>
-            <Link to={'/'} className="brand">
-                <h1>Meu belo CRUD</h1>
-            </Link>
+        <nav>
+            <Link to={'/'} className="brand"> Meu belo crud </Link>
             <div className='menu' onClick={() => setMenuOpen(!menuOpen)}>
                 <span></span>
                 <span></span>

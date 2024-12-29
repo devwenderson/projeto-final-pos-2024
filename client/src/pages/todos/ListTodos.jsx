@@ -1,14 +1,5 @@
 import { useEffect, useState } from "react";
-import ApiWrapper from "../../functions/apiWrapper";
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"  
+import ApiWrapper from "../../functions/apiWrapper"; 
 
 const apiWrapper = new ApiWrapper()
 
@@ -44,15 +35,7 @@ const ListTodos = () => {
             {!isLoading && error && (<p>Erro no cliente</p>)}
 
             {!isLoading && !error && todos.length > 0 ? (
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>ID</TableHead>
-                            <TableHead>Tarefa</TableHead>
-                            <TableHead>Tarefa</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                </Table>
+                <table></table>
             ) : (<p>Tarefas não encontradas</p>)}
         </>
     )

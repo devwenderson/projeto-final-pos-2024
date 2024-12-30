@@ -41,16 +41,6 @@ const ListUsers = () => {
                 </div>
             )}
 
-            {/* {location.state && location.state.status == 400 ? (
-                <div className = {`alert alert-${location.state.type}`}>
-                    O usuário <b>{location.state.user}</b> {location.state.message}
-                </div>
-            ) : (
-                <div className = {`alert alert-${location.state.type}`}>
-                    {location.state.message}
-                </div>
-            )} */}
-
             {/* Se estiver carregando */}
             {isLoading && (<p>Carregando usuários</p>)}
 

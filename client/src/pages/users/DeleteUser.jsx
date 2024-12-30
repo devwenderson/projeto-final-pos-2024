@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router'
 import { useEffect, useState } from 'react'
-import ApiWrapper from '../../functions/apiWrapper'
+import UserWrapper from '../../functions/userWrapper'
 
-const apiWrapper = new ApiWrapper()
+const apiWrapper = new UserWrapper()
 
 const DeleteUser = () => {
     const [userData, setUserData] = useState({});
@@ -12,7 +12,7 @@ const DeleteUser = () => {
 
     const fetchUser = async () => {
         try {
-            const response = await apiWrapper.detail('/users/', id);
+            const response = await apiWrapper.detailUser('users/', id);
             setUserData(response.data)
         } catch (error) {
             setError('Ocorreu um erro ao pesquisar o usuário')
@@ -25,8 +25,12 @@ const DeleteUser = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await apiWrapper.delete('/users/', id);
-        navigate('/usuarios/') 
+        const response = await apiWrapper.deleteUser('users/', id);
+        if (response.status == 204) {
+            navigate('/usuarios/', {state: {status: response.status, user: userData.name, message: "Usuário deletado com sucesso", type: 'success'}}) 
+        } else {
+            navigate('/usuarios/', {state: {status: response.status, user: userData.name, message: "possui dados vinculados", type: 'danger'}})
+        }
     };
 
     return (

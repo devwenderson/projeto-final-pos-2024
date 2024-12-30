@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import ApiWrapper from '../../functions/apiWrapper';
+import UserWrapper from '../../functions/userWrapper';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const apiWrapper = new ApiWrapper()
+const apiWrapper = new UserWrapper()
 
 
 const UpdateUser = () => {
@@ -14,7 +14,7 @@ const UpdateUser = () => {
 
     const fetchUser = async () => {
         try {
-            const response = await apiWrapper.detail('/users/', id)
+            const response = await apiWrapper.detailUser('users/', id)
             setUserData(response.data)
         } catch (error) {
             setError(error)
@@ -33,7 +33,7 @@ const UpdateUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await apiWrapper.update('/users/', id, userData)
+            await apiWrapper.updateUser('users/', id, userData)
             navigate('/usuarios/')
         } catch (error) {
             setError("Não foi possível atualizar o usuário")

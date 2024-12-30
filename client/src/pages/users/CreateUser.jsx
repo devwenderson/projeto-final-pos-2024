@@ -1,12 +1,12 @@
 import { useState } from "react";
-import ApiWrapper from "../../functions/apiWrapper";
+import UserWrapper from "../../functions/userWrapper";
 import { useNavigate } from "react-router";
 const CreateUser = () => {
     const [userData, setUserData] = useState({ name: "" })
     const [error, setError] = useState(null)
     const [success, setSuccess] = useState(null)
 
-    const apiWrapper = new ApiWrapper()
+    const apiWrapper = new UserWrapper()
     let navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -17,7 +17,7 @@ const CreateUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await apiWrapper.create("/users/", userData);
+            await apiWrapper.createUser("users/", userData);
             setSuccess("Usuário cadastrado com sucesso");
             setUserData({ nome: "" });
             navigate('/usuarios/')
@@ -33,7 +33,7 @@ const CreateUser = () => {
 
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Nome:</label>
-                <input type="text" name="name" id="name" placeholder="Insira o nome" value={userData.name} onChange={handleChange} required />
+                <input type="text" name="name" id="name" placeholder="Insira o nome" value={userData.name} onChange={handleChange} required autoFocus/>
                 <button type="submit">Cadastrar</button>
             </form>
         </>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
-import ApiWrapper from '../../functions/apiWrapper';
+import UserWrapper from '../../functions/userWrapper';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const apiWrapper = new ApiWrapper();
+const apiWrapper = new UserWrapper();
 
 const ListUsers = () => {
     const [users, setUsers] = useState([]);
@@ -14,7 +14,7 @@ const ListUsers = () => {
     const fetchUsers = async () => {
         try {
             setIsLoading(true)
-            const response = await apiWrapper.listAll('/users/');
+            const response = await apiWrapper.listUser('users/');
             setUsers(response.data)
         } catch (error) {
             setError(error)
@@ -37,9 +37,19 @@ const ListUsers = () => {
             {/* Se usuário for deletado */}
             {location.state && location.state.message && (
                 <div className = {`alert alert-${location.state.type}`}>
-                    O usuário <b>{location.state.user}</b> {location.state.message}
+                    Usuário <b>{location.state.user}</b> {location.state.message}
                 </div>
             )}
+
+            {/* {location.state && location.state.status == 400 ? (
+                <div className = {`alert alert-${location.state.type}`}>
+                    O usuário <b>{location.state.user}</b> {location.state.message}
+                </div>
+            ) : (
+                <div className = {`alert alert-${location.state.type}`}>
+                    {location.state.message}
+                </div>
+            )} */}
 
             {/* Se estiver carregando */}
             {isLoading && (<p>Carregando usuários</p>)}

@@ -20,11 +20,11 @@ const CreateUser = () => {
             await apiWrapper.createUser("users/", userData);
             setSuccess("Usuário cadastrado com sucesso");
             setUserData({ nome: "" });
-            navigate('/usuarios/')
+            navigate('/usuarios/');
         } catch (error) {
-            setError("Não foi possível cadastrar o usuário")
-        }
-    }
+            setError("Não foi possível cadastrar o usuário");
+        };
+    };
 
     return (
         <>

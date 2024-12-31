@@ -4,3 +4,7 @@
     /* right and left is auto */
     margin: 0 auto;
 }
+
+.form-select {
+    cursor: pointer;
+}

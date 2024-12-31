@@ -9,7 +9,7 @@ const ListUsers = () => {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const location = useLocation()
+    const location = useLocation();
 
     const fetchUsers = async () => {
         try {
@@ -48,7 +48,7 @@ const ListUsers = () => {
             {error && (<p>Algo deu errado em nosso site. A culpa não foi sua!</p>)}
 
             {/* Quando terminar a requisição */}
-            {!isLoading && !error && users.length > 0 ? (
+            {!isLoading && !error && users.length > 0 && (
                 <table className='table table-striped'>
                     <thead>
                         <tr>
@@ -70,7 +70,9 @@ const ListUsers = () => {
                         ))}
                     </tbody>
                 </table>
-            ) : (<p>Usuários não encontrados</p>)}
+            )}
+
+            {!isLoading && !error && users.length == 0 && (<p>Usuários não encontrados</p>)}
         </>
     )
 }

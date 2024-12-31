@@ -1,8 +1,27 @@
 from rest_framework import serializers
 from apps.todo.models import Todo
+from apps.user.models import User
 
 class TodoSerializer(serializers.ModelSerializer):
-    user = serializers.CharField(source='user.name', read_only=True)
+    user = serializers.CharField(source='user.name')
     class Meta:
         model = Todo
-        fields = ['title', 'user', 'is_complete']
+        fields = ['id', 'title', 'user', 'is_complete']
+        
+    def create(self, validate_data):
+        user_id = validate_data.pop('user')['name']
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise serializers.ValidationError({"user": "Usuário não encontrado."})
+
+        todo = Todo.objects.create(user=user, **validate_data)
+        return todo
+    
+    def update(self, instance, validate_data):
+        user_id = validate_data.pop('user', None)
+        
+        instance.title = validate_data.get('title', instance.title)
+        instance.is_complete = validate_data.get('is_complete', instance.is_complete)
+        instance.save()
+        return instance

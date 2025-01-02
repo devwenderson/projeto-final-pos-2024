@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
-import TodoWrapper from "../../functions/todoWrapper";
+import PhotoWrapper from "../../functions/photoWrapper";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const todoWrapper = new TodoWrapper()
+const photoWrapper = new PhotoWrapper()
 
 const ListTodos = () => {
-    const [todos, setTodos] = useState([]);
+    const [photos, setPhotos] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const location = useLocation()
 
-    const fetchTodos = async () => {
+    const fetchPhotos = async () => {
         try {
             setIsLoading(true);
-            const response = await todoWrapper.listTodo('todos/');
-            setTodos(response.data);
+            const response = await photoWrapper.listPhotos('photos/');
+            setPhotos(response.data);
         } catch (error) {
             setError(error)
         } finally {
@@ -24,13 +24,13 @@ const ListTodos = () => {
     }
 
     useEffect(() => {
-        fetchTodos()
+        fetchPhotos()
     }, [])
 
     return (
         <>
-            <h1>Lista de tarefas</h1>
-            <Link to={'/tarefas/cadastrar/'} className="btn btn-primary">Cadastrar tarefa</Link>
+            <h1>Lista de fotos</h1>
+            <Link to={'/fotos/cadastrar/'} className="btn btn-primary">Cadastrar foto</Link>
 
             {/* Se alguma tarefa for deletada */}
             {location.state && location.state.message && (
@@ -40,33 +40,32 @@ const ListTodos = () => {
             )}
 
             {/* Se estiver carregando */}
-            {isLoading && (<p>Carregando tarefas</p>)}
+            {isLoading && (<p>Carregando fotos</p>)}
 
             {/* Se tiver erro */}
             {!isLoading && error && (<p>Erro no cliente</p>)}
 
             {/* Se tiver tarefas */}
-            {!isLoading && !error && todos.length > 0 && (
+            {!isLoading && !error && photos.length > 0 && (
                 <table className="table table-striped">
                     <thead>
                         <tr>
                             <td>ID</td>
-                            <td>Tarefa</td>
-                            <td>Usuário</td>
-                            <td>Concluída</td>
+                            <td>Título</td>
+                            <td>Álbum</td>
                             <td>Opção</td>
                         </tr>
                     </thead>
                     <tbody>
-                        {todos.map((todo) => (
-                            <tr key={todo.id}>
-                                <td>{todo.id}</td>
-                                <td>{todo.title}</td>
-                                <td>{todo.user}</td>
-                                <td>{todo.is_complete ? 'Sim' : 'Não'}</td>
+                        {photos.map((photo) => (
+                            <tr key={photo.id}>
+                                <td>{photo.id}</td>
+                                <td>{photo.title}</td>
+                                <td>{photo.album}</td>
+                                <td><img className="photo" src={photo.url}/></td>
                                 <td>
-                                    <Link to={`/tarefas/deletar/${todo.id}/`} className="btn btn-danger">Deletar</Link>
-                                    <Link to={`/tarefas/atualizar/${todo.id}/`} className="btn btn-primary">Atualizar</Link>
+                                    <Link to={`/fotos/deletar/${photo.id}/`} className="btn btn-danger">Deletar</Link>
+                                    <Link to={`/fotos/atualizar/${photo.id}/`} className="btn btn-primary">Atualizar</Link>
                                 </td>
                             </tr>
                         ))}
@@ -74,7 +73,7 @@ const ListTodos = () => {
                 </table>
             )}
 
-            {!isLoading && !error && todos.length == 0 && (<p>Tarefas não encontradas</p>)}
+            {!isLoading && !error && photos.length == 0 && (<p>Fotos não encontradas</p>)}
         </>
     )
 }

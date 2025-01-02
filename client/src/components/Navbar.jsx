@@ -25,6 +25,9 @@ const Navbar = () => {
                 <li>
                     <NavLink to={'albuns/'}>Albuns</NavLink>
                 </li>
+                <li>
+                    <NavLink to={'fotos/'}>Fotos</NavLink>
+                </li>
             </ul>
         </nav>
     )

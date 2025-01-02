@@ -25,7 +25,22 @@ class AlbumSerializer(serializers.ModelSerializer):
         
         
 class PhotoSerializer(serializers.ModelSerializer):
-    album = serializers.CharField(source='album.title', read_only=True)
+    album = serializers.CharField(source='album.title')
     class Meta:
         model = Photo
         fields = '__all__'
+        
+    def create(self, validate_data):
+        album_id = validate_data.pop('album')['title']
+        try:
+            album = Album.objects.get(id=album_id)
+        except Album.DoesNotExist:
+            raise serializer.ValidationError({'album': 'Álbum não encontrado'})
+        photo = Photo.objects.create(album=album, **validate_data)
+        return photo
+    
+    def update(self, instance, validate_data):
+        instance.url = validate_data.get('url', instance.url)
+        instance.title = validate_data.get('title', instance.title)
+        instance.save()
+        return instance

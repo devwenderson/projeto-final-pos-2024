@@ -5,13 +5,19 @@ from apps.album.models import Album, Photo
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
-    
-class PhotoAlbumViewSet(viewsets.ModelViewSet):
-    serializer_class = PhotoSerializer
     def get_queryset(self):
-        return Photo.objects.filter(album=self.kwargs['album_pk'])
+        user_pk = self.kwargs.get("user_pk")
+        if user_pk:
+            return Album.objects.filter(user=user_pk)
+        return super().get_queryset()
+    
     
 class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+    def get_queryset(self):
+        album_pk = self.kwargs.get("album_pk")
+        if album_pk:
+            return Photo.objects.filter(album=self.kwargs['album_pk'])
+        return super().get_queryset()
     

@@ -71,7 +71,6 @@ const UpdateTodo = () => {
             name="is_complete"
             id="is_complete"
             className="form-select"
-            required
             onChange={handleChange}
           >
             <option value="false">Não</option>

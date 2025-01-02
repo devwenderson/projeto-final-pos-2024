@@ -1,48 +1,48 @@
 import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router';
-import TodoWrapper from '../../functions/todoWrapper';
+import PhotoWrapper from '../../functions/photoWrapper';
 
-const todoWrapper = new TodoWrapper();
+const photoWrapper = new PhotoWrapper();
 
-const DeleteTodo = () => {
-    const [todo, setTodo] = useState({});
+const DeletePhoto = () => {
+    const [photo, setPhoto] = useState({});
     const [error, setError] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const fetchTodo = async () => {
+    const fetchPhoto = async () => {
         try {
-            const response = await todoWrapper.detailTodo('todos/', id);
-            setTodo(response.data);
+            const response = await photoWrapper.detailPhoto('photos/', id);
+            setPhoto(response.data);
         } catch (error) {
             setError(error)
         }
     };
 
     useEffect(() => {
-        fetchTodo();
+        fetchPhoto();
     }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await todoWrapper.deleteTodo('todos/', id);
+        const response = await photoWrapper.deletePhoto('photos/', id);
         if (response.status == 204) {
-            navigate('/tarefas/', { state: { message: "Tarefa deletada com sucesso", type: "success" } });
+            navigate('/fotos/', { state: { message: "Foto deletada com sucesso", type: "success" } });
         } else {
-            navigate('/tarefas/', { state: { message: "Erro ao excluir tarefa", type: "danger" } });
+            navigate('/fotos/', { state: { message: "Erro ao excluir foto", type: "danger" } });
         }
     }
 
     return (
         <>
-            <h1>Deletar tarefa <b>{todo.title}</b>? </h1>
+            <h1>Deletar foto <img className='photo' src={photo.url}/> ? </h1>
 
-            {error && (<p>Tarefa não encontrada</p>)}
+            {error && (<p>Foto não encontrada</p>)}
 
-            {!error && todo && (
+            {!error && photo && (
                 <form onSubmit={handleSubmit}>
-                    <Link to={'/tarefas/'} className='btn btn-success'>Cancelar</Link>
+                    <Link to={'/fotos/'} className='btn btn-success'>Cancelar</Link>
                     <button type='submit' className='btn btn-danger'>Deletar</button>
                 </form>
             )}
@@ -50,4 +50,4 @@ const DeleteTodo = () => {
     )
 }
 
-export default DeleteTodo;
+export default DeletePhoto;

@@ -1,39 +1,52 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
-import TodoWrapper from "../../functions/todoWrapper";
-import UserWrapper from "../../functions/userWrapper";
+import { useNavigate, useParams, Link } from "react-router";
+import PhotoWrapper from "../../functions/photoWrapper";
+import AlbumWrapper from "../../functions/albumWrapper";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const todoWrapper = new TodoWrapper();
+const photoWrapper = new PhotoWrapper();
+// const albumWrapper = new AlbumWrapper();
 
-const UpdateTodo = () => {
-  const [todoData, setTodoData] = useState({
-    title: "",
-    user: "",
-    is_complete: false,
-  });
+const UpdatePhoto = () => {
+  // const [albuns, setAlbuns] = useState([]);
+  const [photoData, setPhotoData] = useState({ title: "", url: "" });
+  const [fieldErrors, setFieldErrors] = useState({});
   const [error, setError] = useState(null);
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const fetchTodo = async () => {
+  const fetchPhoto = async () => {
     try {
-      const response = await todoWrapper.detailTodo("todos/", id);
-      setTodoData(response.data);
+      const response = await photoWrapper.detailPhoto("photos/", id);
+      setPhotoData(response.data);
     } catch (error) {
       setError(error);
     }
   };
 
+  // const fetchAlbuns = async () => {
+  //   try {
+  //     const response = await albumWrapper.listAlbuns("albuns/");
+  //     setAlbuns(response.data);
+  //   } catch (error) {
+  //     setError(error);
+  //   }
+  // };
+
   useEffect(() => {
-    fetchTodo();
+    // fetchAlbuns();
+    fetchPhoto();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (photoData.url.length > 200) {
+      setFieldErrors({ url: "A URL deve ter menos de 200 caracteres." });
+      return;
+    }
     try {
-      await todoWrapper.updateTodo("todos/", id, todoData);
-      navigate("/tarefas/");
+      await photoWrapper.updatePhoto("photos/", id, photoData);
+      navigate("/fotos/");
     } catch (error) {
       setError(error);
     }
@@ -41,46 +54,51 @@ const UpdateTodo = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTodoData({ ...todoData, [name]: value });
+    setPhotoData({ ...photoData, [name]: value });
   };
 
   return (
     <>
-      <h1>Atualizar tarefa</h1>
+      <h1>Atualizar foto</h1>
       <form className="row" onSubmit={handleSubmit}>
-        <div class="col-md-12 mb-3">
+        <div className="col-md-12 mb-3">
           <label htmlFor="title" className="form-label">
-            Tarefa
+            Título
           </label>
-          
+
           <input
             type="text"
             name="title"
             id="title"
             className="form-control"
-            value={todoData.title}
+            value={photoData.title}
             onChange={handleChange}
           />
         </div>
-        <div class="col-md-4 mb-3">
-          <label htmlFor="is_complete" className="form-label">
-            Concluída?
+
+        <div className="col-md-12 mb-3">
+          <label htmlFor="url" className="form-label">
+            URL
           </label>
-          <select
-            value={todoData.is_complete ? "true" : "false"}
-            name="is_complete"
-            id="is_complete"
-            className="form-select"
-            required
+          <input
+            type="text"
+            name="url"
+            id="url"
+            className={`form-control ${fieldErrors.url ? "is-invalid" : ""}`}
+            placeholder="Coloque a URL da foto"
+            value={photoData.url}
             onChange={handleChange}
-          >
-            <option value="false">Não</option>
-            <option value="true">Sim</option>
-          </select>
+          />
+          {fieldErrors.url && (
+            <div className="invalid-feedback">{fieldErrors.url}</div>
+          )}
         </div>
         <div>
+          <Link to={"/fotos/"} className="btn btn-danger">
+            Cancelar
+          </Link>
           <button type="submit" className="btn btn-success">
-            Cadastrar
+            Atualizar
           </button>
         </div>
       </form>
@@ -88,4 +106,4 @@ const UpdateTodo = () => {
   );
 };
 
-export default UpdateTodo;
+export default UpdatePhoto;

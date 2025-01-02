@@ -22,6 +22,9 @@ const Navbar = () => {
                 <li>
                     <NavLink to={'tarefas/'}>Tarefas</NavLink>
                 </li>
+                <li>
+                    <NavLink to={'albuns/'}>Albuns</NavLink>
+                </li>
             </ul>
         </nav>
     )

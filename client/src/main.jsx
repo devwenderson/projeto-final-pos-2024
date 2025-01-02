@@ -10,6 +10,7 @@ import Home from './pages/Home.jsx';
 // Routes
 import userRoutes from './routes/userRoutes';
 import todosRoutes from './routes/todosRoutes';
+import albunsRoutes from './routes/albunsRoutes.jsx';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       },
       ...userRoutes,
       ...todosRoutes,
+      ...albunsRoutes,
     ],
   },
 ]);

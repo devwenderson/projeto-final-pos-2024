@@ -3,7 +3,7 @@ from apps.user.models import User
 
 class Album(models.Model):
     title = models.CharField(verbose_name='Nome', max_length=50)
-    user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="user", on_delete=models.PROTECT)
 
     class Meta:
         verbose_name = 'Álbum' 

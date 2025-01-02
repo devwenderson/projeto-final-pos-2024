@@ -19,8 +19,6 @@ class TodoSerializer(serializers.ModelSerializer):
         return todo
     
     def update(self, instance, validate_data):
-        user_id = validate_data.pop('user', None)
-        
         instance.title = validate_data.get('title', instance.title)
         instance.is_complete = validate_data.get('is_complete', instance.is_complete)
         instance.save()

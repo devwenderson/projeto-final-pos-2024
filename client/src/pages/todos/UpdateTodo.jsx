@@ -40,19 +40,19 @@ const UpdateTodo = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTodoData({ ...todoData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setTodoData({ ...todoData, [name]: type === "checkbox" ? checked : value });
   };
 
   return (
     <>
       <h1>Atualizar tarefa</h1>
       <form className="row" onSubmit={handleSubmit}>
-        <div class="col-md-12 mb-3">
+        <div className="col-md-12 mb-3">
           <label htmlFor="title" className="form-label">
             Tarefa
           </label>
-          
+
           <input
             type="text"
             name="title"
@@ -62,24 +62,24 @@ const UpdateTodo = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="col-md-4 mb-3">
-          <label htmlFor="is_complete" className="form-label">
-            Concluída?
-          </label>
-          <select
-            value={todoData.is_complete ? "true" : "false"}
-            name="is_complete"
-            id="is_complete"
-            className="form-select"
-            onChange={handleChange}
-          >
-            <option value="false">Não</option>
-            <option value="true">Sim</option>
-          </select>
+        <div className="col-md-4 mb-3">
+          <div className="form-check">
+            <input
+              type="checkbox"
+              name="is_complete"
+              id="is_complete"
+              className="form-check-input"
+              checked={todoData.is_complete}
+              onChange={handleChange}
+            />
+            <label htmlFor="is_complete" className="form-check-label">
+              Concluída?
+            </label>
+          </div>
         </div>
         <div>
           <button type="submit" className="btn btn-success">
-            Cadastrar
+            Atualizar
           </button>
         </div>
       </form>

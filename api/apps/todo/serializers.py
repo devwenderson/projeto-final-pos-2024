@@ -4,9 +4,10 @@ from apps.user.models import User
 
 class TodoSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.name')
+    user_id = serializers.IntegerField(source='user.id', read_only=True)
     class Meta:
         model = Todo
-        fields = ['id', 'title', 'user', 'is_complete']
+        fields = ['id', 'title', 'user', 'user_id', 'is_complete']
         
     def create(self, validate_data):
         user_id = validate_data.pop('user')['name']

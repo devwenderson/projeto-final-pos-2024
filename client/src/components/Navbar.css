@@ -5,6 +5,8 @@
 .brand {
     text-decoration: none;
     color: rgb(240, 245, 255);
+    font-weight: bold;
+    font-size: 24px
 }
 
 nav {
@@ -19,7 +21,9 @@ nav {
 
 .ul {
     list-style: none;
-    display: flex;
+    display: flex;  
+    margin-bottom: 0;
+
 }
 
 .ul li a {
@@ -45,6 +49,11 @@ nav .menu {
     justify-content: space-between;
     width: 2.25rem;
     height: 2rem;
+    cursor: pointer;
+}
+
+nav .menu:hover {
+    scale: 1.1;
 }
 
 nav .menu span {
@@ -54,7 +63,7 @@ nav .menu span {
     border-radius: 0.2rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 610px) {
     nav .menu {
         display: flex;
     }

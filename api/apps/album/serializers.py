@@ -4,9 +4,10 @@ from apps.user.models import User
 
 class AlbumSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.name')
+    user_id = serializers.IntegerField(source='user.id', read_only=True)
     class Meta:
         model = Album
-        fields = ['id', 'title', 'user']
+        fields = ['id', 'title', 'user', 'user_id']
         
     def create(self, validate_data):
         user_id = validate_data.pop('user')['name']

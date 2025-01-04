@@ -61,7 +61,7 @@ const ListUsers = () => {
                         {users.map((user)=>(
                             <tr key={user.id}>
                                 <td>{user.id}</td>
-                                <td>{user.name}</td>
+                                <td><Link to={`/usuarios/${user.id}`}>{user.name}</Link></td>
                                 <td>
                                     <Link to={`/usuarios/editar/${user.id}/`} className='btn btn-primary'>Editar</Link>
                                     <Link to={`/usuarios/deletar/${user.id}/`} className='btn btn-danger'>Deletar</Link>
